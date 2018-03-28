@@ -8,9 +8,15 @@ namespace Vidly.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int? pageIndex, string sortBy)
         {
-            return View();
+            if (!pageIndex.HasValue)
+                pageIndex = 1;
+
+            if (string.IsNullOrWhiteSpace(sortBy))
+                sortBy = "Name";
+
+            return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
         }
 
         public ActionResult About()
@@ -26,5 +32,7 @@ namespace Vidly.Controllers
 
             return View();
         }
+
+
     }
 }
